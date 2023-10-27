@@ -5,45 +5,53 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private int speed;
-    private Vector2 dirVector;
-    private Rigidbody2D rb;
-    private bool isPossessing = false;
+    private float setSpeed;
+    private float speed;
+    private Rigidbody2D playerRb, rb;
+    private Vector2 movementAxis;
+    private bool possessing = false;
+
     private const float diagonalFix = 0.70710678118f;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        playerRb = rb = GetComponent<Rigidbody2D>();
+        speed = setSpeed;
     }
 
     private void Update()
     {
-        dirVector = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        movementAxis.x = Input.GetAxis("Horizontal");
+        movementAxis.y = Input.GetAxis("Vertical");
 
-        if (dirVector.x != 0 && dirVector.y != 0)
+        if (movementAxis.x != 0 && movementAxis.y != 0)
         {
-            dirVector.x = Mathf.Clamp(dirVector.x, -diagonalFix, diagonalFix);
-            dirVector.y = Mathf.Clamp(dirVector.y, -diagonalFix, diagonalFix);
+            movementAxis.x = Mathf.Clamp(movementAxis.x, -diagonalFix, diagonalFix);
+            movementAxis.y = Mathf.Clamp(movementAxis.y, -diagonalFix, diagonalFix);
         }
 
-        if (isPossessing)
-            transform.position = rb.transform.position;
+        if (possessing)
+            transform.position = rb.position;
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = dirVector * speed * Time.fixedDeltaTime;
+        rb.velocity = movementAxis * speed * Time.fixedDeltaTime;
     }
 
-    public void SetPossess(GameObject possess)
+    public void SetPossess(float speed, Rigidbody2D rb)
     {
-        isPossessing = true;
-        rb = possess.GetComponent<Rigidbody2D>();
+        this.speed = speed;
+        this.rb = rb;
+        possessing = true;
+
+        transform.position = rb.position;
     }
 
     public void SetPossess()
     {
-        isPossessing = false;
-        rb = GetComponent<Rigidbody2D>();
+        this.speed = setSpeed;
+        this.rb = playerRb;
+        possessing = false;
     }
 }
