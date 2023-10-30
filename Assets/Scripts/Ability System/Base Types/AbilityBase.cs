@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class AbilityBase : ScriptableObject
 {
-    [SerializeField]
-    private int cooldown;
+    public Sprite Icon;
 
-    public readonly bool manaCost;
+    [SerializeField]
+    private float cooldown;
+    public float GetCooldown { get { return cooldown; } }
+
+    [SerializeField]
+    private bool manaCost;
+    public bool GetManaCost { get { return manaCost; } }
 
     public virtual void Cast(Transform parent, Vector3 position, Vector3 direction, LayerMask spellLayer) { }
 

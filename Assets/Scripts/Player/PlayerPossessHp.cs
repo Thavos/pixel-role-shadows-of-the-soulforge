@@ -6,7 +6,7 @@ public class PlayerPossessHp : MonoBehaviour
 {
     public RectTransform possessHpBar;
 
-    private int maxHp, hp;
+    private float maxHp;
     private bool possessing = false;
 
     private void Start()
@@ -14,15 +14,15 @@ public class PlayerPossessHp : MonoBehaviour
         possessHpBar.gameObject.SetActive(possessing);
     }
 
-    public void UpdateBar(int hp)
+    public void UpdateBar(float hp)
     {
         if (hp < 0)
             hp = 0;
         else if (hp > maxHp)
             hp = maxHp;
 
-        float Xpos = (1 - (hp / maxHp)) * -possessHpBar.sizeDelta.x;
-        possessHpBar.localPosition = new Vector3(Xpos, 0, 0);
+        float Xpos = (1 - (hp / maxHp)) * possessHpBar.sizeDelta.x;
+        possessHpBar.anchoredPosition = new Vector2(-Xpos, 0);
     }
 
     public void SetPossess(bool status)
@@ -31,7 +31,7 @@ public class PlayerPossessHp : MonoBehaviour
         possessHpBar.gameObject.SetActive(possessing);
     }
 
-    public void SetPossess(int maxHp, int hp, int regeneration)
+    public void SetPossess(float maxHp, float hp, float regeneration)
     {
         this.maxHp = maxHp;
         possessing = true;

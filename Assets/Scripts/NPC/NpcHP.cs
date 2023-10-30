@@ -5,16 +5,17 @@ using UnityEngine;
 public class NpcHP : MonoBehaviour
 {
     [SerializeField]
-    private int maxHp, regeneration;
-    private int hp;
+    private float maxHp, regeneration;
+    private float hp;
     private PlayerPossessHp possessHp; // also functions as a checker value if character is possessed 
 
     private void Start()
     {
+        possessHp = null;
         hp = maxHp;
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         hp -= amount;
         if (possessHp != null)

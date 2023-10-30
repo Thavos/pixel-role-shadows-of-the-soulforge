@@ -1,9 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCombat : MonoBehaviour
 {
+    public List<Image> possessIcons = new List<Image>(),
+                       playerIcons = new List<Image>();
+
+    public List<Image> cooldownOverlay = new List<Image>();
+
     [SerializeField]
     private List<KeyCode> keyBindings = new List<KeyCode>();
 
@@ -27,21 +33,58 @@ public class PlayerCombat : MonoBehaviour
     {
         for (int i = 0; i < abilities.Count; i++)
         {
-            if (Input.GetKey(keyBindings[i]))
+            if (Input.GetKeyDown(keyBindings[i]))
             {
-                if (abilities[i].CheckCooldown(cooldowns[i]) || abilities[i].manaCost)
+                if (cooldowns[i] <= 0 || abilities[i].GetManaCost)
                 {
-                    if (abilities[i].CheckCooldown(cooldowns[i]) == false && abilities[i].manaCost)
+                    if (cooldowns[i] > 0 && abilities[i].GetManaCost)
                         pHp.PayManaCost();
 
                     Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                     Vector3 dir = mousePos - transform.position;
                     dir = dir.normalized;
 
-                    cooldowns[i] = Time.time;
+                    cooldowns[i] = abilities[i].GetCooldown;
+                    cooldownOverlay[i].gameObject.SetActive(true);
+
                     abilities[i].Cast(transform, transform.position + dir, dir, (int)SpellLayers.PlayerAbility);
                 }
             }
+
+            if (cooldowns[i] > 0f)
+            {
+                cooldowns[i] -= Time.fixedDeltaTime;
+                cooldownOverlay[i].fillAmount = cooldowns[i] / abilities[i].GetCooldown;
+
+                if (cooldowns[i] <= 0f)
+                    cooldownOverlay[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    public void SetPossess(List<AbilityBase> abilities)
+    {
+        this.abilities = abilities;
+
+        for (int i = 0; i < possessIcons.Count; i++)
+        {
+            if (abilities.Count > i)
+            {
+                possessIcons[i].enabled = true;
+                possessIcons[i].sprite = abilities[i].Icon;
+            }
+            else
+                possessIcons[i].enabled = false;
+        }
+    }
+
+    public void SetPossess()
+    {
+        this.abilities = new List<AbilityBase>();
+
+        for (int i = 0; i < possessIcons.Count; i++)
+        {
+            possessIcons[i].enabled = false;
         }
     }
 }

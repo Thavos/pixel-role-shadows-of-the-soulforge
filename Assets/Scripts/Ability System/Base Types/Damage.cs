@@ -23,6 +23,6 @@ public class Damage : AbilityBase
 
     public virtual void OnHit(GameObject target)
     {
-        target.SendMessage("TakeDamage", damage);
+        target.SendMessage("TakeDamage", damage, SendMessageOptions.DontRequireReceiver);
     }
 }

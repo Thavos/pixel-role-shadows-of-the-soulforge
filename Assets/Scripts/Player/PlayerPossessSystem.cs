@@ -90,5 +90,4 @@ public class PlayerPossessSystem : MonoBehaviour
         possessHelper.ContactPossess(possessObj, false); // Leaving old possess body
         possessObj = null;
     }
-
 }

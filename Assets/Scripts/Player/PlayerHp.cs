@@ -18,12 +18,15 @@ public class PlayerHp : MonoBehaviour
     private void UpdateBar()
     {
         if (hp < 0)
-            hp = 0;
+        {
+            Time.timeScale = 0;
+            Debug.Log("Player Died");
+        }
         else if (hp > maxHp)
             hp = maxHp;
 
-        float Xpos = (1 - (hp / maxHp)) * -hpBar.sizeDelta.x;
-        hpBar.localPosition = new Vector3(Xpos, 0, 0);
+        float Xpos = (1 - (hp / maxHp)) * hpBar.sizeDelta.x;
+        hpBar.anchoredPosition = new Vector2(-Xpos, 0);
     }
 
     public void TakeDamage(int amount)

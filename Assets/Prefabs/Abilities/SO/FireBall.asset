@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 305ee446a0454ff4187c7ef651d303f9, type: 3}
   m_Name: FireBall
   m_EditorClassIdentifier: 
+  Icon: {fileID: 21300000, guid: ab058d12b8062bf4fae9f1a8d172f29e, type: 3}
   cooldown: 1
+  manaCost: 1
   damage: 10
   velocity: 10
-  hitRadius: 10
+  hitRadius: 0.5
   spellPrefab: {fileID: 2520756752389864733, guid: 71ca41c01d31d614bba8ba53a9db36e7, type: 3}

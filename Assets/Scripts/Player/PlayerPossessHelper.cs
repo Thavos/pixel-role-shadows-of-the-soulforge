@@ -29,6 +29,7 @@ public class PlayerPossessHelper : MonoBehaviour
         if (!status)                      // On false - reset player movement
         {
             playerMovement.SetPossess();
+            playerCombat.SetPossess();
             possessHp.SetPossess(false);
         }
     }
@@ -53,5 +54,10 @@ public class PlayerPossessHelper : MonoBehaviour
     public PlayerPossessHp GetPossessHp()
     {
         return possessHp;
+    }
+
+    public void SetAbilities(List<AbilityBase> abilities)
+    {
+        playerCombat.SetPossess(abilities);
     }
 }
