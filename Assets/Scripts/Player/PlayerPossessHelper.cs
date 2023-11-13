@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerPossessHelper : MonoBehaviour
 {
     [SerializeField]
+    private GameObject effectObj;
+    [SerializeField]
     private Collider2D[] colliders;
     private SpriteRenderer sprite;
     private PlayerPossessHp possessHp;
@@ -22,6 +24,7 @@ public class PlayerPossessHelper : MonoBehaviour
     public void SetPossess(bool status)
     {
         sprite.enabled = !status;         // Enable / disable player sprite
+        effectObj.SetActive(!status);
 
         foreach (var col in colliders)    // Enable / disable player colliders
             col.enabled = !status;

@@ -36,7 +36,6 @@ public class DamageController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("HERE");
         spell.OnHit(other.gameObject);
 
         // Collateral Damage

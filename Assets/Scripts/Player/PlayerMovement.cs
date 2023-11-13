@@ -5,8 +5,9 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private float setSpeed;
-    private float speed;
+    private float setSpeed,
+                  speed,
+                  mutliplayer = 1;
     private Rigidbody2D playerRb, rb;
     private Vector2 movementAxis;
     private bool possessing = false;
@@ -36,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = movementAxis * speed * Time.fixedDeltaTime;
+        rb.velocity = movementAxis * speed * mutliplayer * Time.fixedDeltaTime;
     }
 
     public void SetPossess(float speed, Rigidbody2D rb)
@@ -53,5 +54,11 @@ public class PlayerMovement : MonoBehaviour
         this.speed = setSpeed;
         this.rb = playerRb;
         possessing = false;
+    }
+
+    public void BoostSpeed(float mutliplayer)
+    {
+        Debug.Log("HERE" + mutliplayer);
+        this.mutliplayer = mutliplayer;
     }
 }

@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class Boost : AbilityBase
 {
-    public readonly LayerMask targetLayers;
-    public readonly float hitRadius,
-                          effectRadius,
-                          castPeriod,
-                          duration,
-                          effectDuration;
-    public readonly GameObject spellPrefab;
+    public float hitRadius,
+                 effectRadius,
+                 castPeriod,
+                 duration,
+                 effectDuration;
+    public GameObject spellPrefab;
 
     public override void Cast(Transform parent, Vector3 position, Vector3 direction, LayerMask spellLayer)
     {
@@ -20,4 +19,6 @@ public class Boost : AbilityBase
     }
 
     public virtual void Apply(Vector3 position) { }
+
+    public virtual void Cancel(Vector3 position) { }
 }

@@ -33,7 +33,7 @@ public class PlayerCombat : MonoBehaviour
     {
         for (int i = 0; i < abilities.Count; i++)
         {
-            if (Input.GetKeyDown(keyBindings[i]))
+            if (Input.GetKeyDown(keyBindings[i]) && abilities[i] != null)
             {
                 if (cooldowns[i] <= 0 || abilities[i].GetManaCost)
                 {
@@ -53,6 +53,7 @@ public class PlayerCombat : MonoBehaviour
 
             if (cooldowns[i] > 0f)
             {
+                Debug.Log("HERE");
                 cooldowns[i] -= Time.fixedDeltaTime;
                 cooldownOverlay[i].fillAmount = cooldowns[i] / abilities[i].GetCooldown;
 

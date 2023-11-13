@@ -16,6 +16,6 @@ MonoBehaviour:
   cooldown: 1
   manaCost: 1
   damage: 10
-  velocity: 10
+  velocity: 22
   hitRadius: 0.5
   spellPrefab: {fileID: 2520756752389864733, guid: 71ca41c01d31d614bba8ba53a9db36e7, type: 3}

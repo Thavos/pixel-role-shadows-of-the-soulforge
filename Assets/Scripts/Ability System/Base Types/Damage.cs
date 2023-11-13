@@ -16,7 +16,6 @@ public class Damage : AbilityBase
 
         GameObject spell = Instantiate(spellPrefab, position, rotation);
         spell.gameObject.layer = spellLayer;
-        //spell.GetComponent<DamageAbilityConroller>().SetTarget(targetTag);
 
         base.Cast(parent, position, direction, spellLayer);
     }

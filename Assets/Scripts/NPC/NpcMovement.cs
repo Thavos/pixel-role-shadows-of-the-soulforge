@@ -11,8 +11,15 @@ public class NpcMovement : MonoBehaviour
     private Rigidbody2D rb;
     public Rigidbody2D GetRb { get { return rb; } }
 
+    private float mutliplayer;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+    }
+
+    public void BoostSpeed(float mutliplayer)
+    {
+        this.mutliplayer = mutliplayer;
     }
 }

@@ -4,26 +4,34 @@ using UnityEngine;
 
 public class BoostController : MonoBehaviour
 {
-    public readonly Boost spell;
+    public Boost spell;
 
+    private LayerMask targetLayer;
     private Coroutine coroutine;
     private float time;
 
     void Start()
     {
-        time = Time.time;
+        time = Time.time + spell.duration;
+        spell.Apply(transform.position);
     }
 
     private void Update()
     {
-        if (Time.time - time > spell.duration)
+        if (Time.time >= time)
         {
             Cancel();
         }
     }
 
+    public void SetTargetLayer(LayerMask targetLayer)
+    {
+        this.targetLayer = targetLayer;
+    }
+
     public void Cancel()
     {
+        spell.Cancel(transform.position);
         Destroy(gameObject);
     }
 }

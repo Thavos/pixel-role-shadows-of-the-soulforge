@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc6f9420a5a4f3a42af30ce59261beb5, type: 3}
+  m_Name: SpeedBoost
+  m_EditorClassIdentifier: 
+  Icon: {fileID: 21300000, guid: 9923a44eeb5a62a4bb53b2c1471e68f7, type: 3}
+  cooldown: 5
+  manaCost: 0
+  hitRadius: 0.5
+  effectRadius: 0
+  castPeriod: 0
+  duration: 3
+  effectDuration: 0
+  spellPrefab: {fileID: 5171466406157856807, guid: a119ca6d26e0a094e9d39670feaaa39f, type: 3}
+  speedMultiplayer: 2
