@@ -4950,3 +4950,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spell: {fileID: 11400000, guid: 60f3ba8f267339447bc5720446fa4b21, type: 2}
+  destroy: 1

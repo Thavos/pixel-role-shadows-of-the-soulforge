@@ -59,8 +59,8 @@ public class PlayerPossessHelper : MonoBehaviour
         return possessHp;
     }
 
-    public void SetAbilities(List<AbilityBase> abilities)
+    public void SetAbilities(List<AbilityBase> abilities, Transform abilityPoint)
     {
-        playerCombat.SetPossess(abilities);
+        playerCombat.SetPossess(abilities, abilityPoint);
     }
 }

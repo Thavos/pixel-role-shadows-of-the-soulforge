@@ -16,6 +16,11 @@ public class NpcPossessHelper : MonoBehaviour
         hp = GetComponent<NpcHP>();
         movement = GetComponent<NpcMovement>();
         abilities = GetComponent<NpcCombat>();
+
+        if (originLayer == NpcLayers.Enemy)
+        {
+            gameObject.GetComponent<EnemyFollow>().Speed = movement.GetSpeed; ;
+        }
     }
 
     public void SetPossess(PlayerPossessHelper helper)
@@ -31,6 +36,8 @@ public class NpcPossessHelper : MonoBehaviour
             {
                 gameObject.tag = "Enemy";
                 gameObject.layer = (int)NpcLayers.Enemy;
+                gameObject.GetComponent<EnemyFollow>().Possessed = false;
+                gameObject.GetComponent<EnemyCombat>().Possessed = false;
             }
             else
             {
@@ -49,8 +56,14 @@ public class NpcPossessHelper : MonoBehaviour
             hp.SetPossess(helper.GetPossessHp());
             abilities.SetPossess(true);
 
+            if (originLayer == NpcLayers.Enemy)
+            {
+                gameObject.GetComponent<EnemyFollow>().Possessed = true;
+                gameObject.GetComponent<EnemyCombat>().Possessed = true;
+            }
+
             helper.SetMovement(movement.GetSpeed, movement.GetRb);
-            helper.SetAbilities(abilities.GetAbilities());
+            helper.SetAbilities(abilities.GetAbilities, abilities.GetAbilityPoint);
         }
     }
 }

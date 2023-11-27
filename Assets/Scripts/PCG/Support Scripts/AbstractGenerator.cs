@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class AbstractGenerator : MonoBehaviour
 {
     [SerializeField]
+    protected Transform player, portal;
+    [SerializeField]
     protected TilemapGenerator tilemapGen;
     [SerializeField]
     protected float seed = 0;

@@ -73,7 +73,7 @@ public class PlayerPossessSystem : MonoBehaviour
 
         // Check if we hit a wall on our mouse path, if yes, teleport to sgort distance
         //   before the wall, otherwise tepeport directly to mouse position
-        RaycastHit2D rayHit = Physics2D.Raycast(transform.position, dir, 10f, (int)ObjectLayers.Wall);
+        RaycastHit2D rayHit = Physics2D.Raycast(transform.position, dir, 10f, (1 << (int)ObjectLayers.Wall));
 
         float hitDistance = (rayHit.point - (Vector2)transform.position).magnitude;
         float mouseDistance = (mousePos - (Vector2)transform.position).magnitude;

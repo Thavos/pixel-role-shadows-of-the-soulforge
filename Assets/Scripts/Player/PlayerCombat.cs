@@ -19,6 +19,10 @@ public class PlayerCombat : MonoBehaviour
     private List<float> cooldowns = new List<float>();
     private PlayerHp pHp;
 
+    [SerializeField]
+    private Transform setAbilityPoint;
+    private Transform abilityPoint;
+
     private void Start()
     {
         pHp = GetComponent<PlayerHp>();
@@ -41,19 +45,18 @@ public class PlayerCombat : MonoBehaviour
                         pHp.PayManaCost();
 
                     Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    Vector3 dir = mousePos - transform.position;
+                    Vector3 dir = mousePos - abilityPoint.position;
                     dir = dir.normalized;
 
                     cooldowns[i] = abilities[i].GetCooldown;
                     cooldownOverlay[i].gameObject.SetActive(true);
 
-                    abilities[i].Cast(transform, transform.position + dir, dir, (int)SpellLayers.PlayerAbility);
+                    abilities[i].Cast(transform, abilityPoint.position + dir, dir, (int)SpellLayers.PlayerAbility);
                 }
             }
 
             if (cooldowns[i] > 0f)
             {
-                Debug.Log("HERE");
                 cooldowns[i] -= Time.fixedDeltaTime;
                 cooldownOverlay[i].fillAmount = cooldowns[i] / abilities[i].GetCooldown;
 
@@ -63,9 +66,10 @@ public class PlayerCombat : MonoBehaviour
         }
     }
 
-    public void SetPossess(List<AbilityBase> abilities)
+    public void SetPossess(List<AbilityBase> abilities, Transform abilityPoint)
     {
         this.abilities = abilities;
+        this.abilityPoint = abilityPoint;
 
         for (int i = 0; i < possessIcons.Count; i++)
         {
@@ -82,6 +86,7 @@ public class PlayerCombat : MonoBehaviour
     public void SetPossess()
     {
         this.abilities = new List<AbilityBase>();
+        abilityPoint = setAbilityPoint;
 
         for (int i = 0; i < possessIcons.Count; i++)
         {

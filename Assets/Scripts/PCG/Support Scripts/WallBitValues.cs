@@ -113,6 +113,13 @@ public class WallBitValues
         0b10110101,
         0b11100110,
         0b10010011,
+        0b10010110,
+        0b10010010,
+        0b10110110,
+        0b10100110,
+        0b10100101,
+        0b10100010,
+        0b10010100,
     };
 
     public static HashSet<int> SinglePeakConnector = new HashSet<int>{

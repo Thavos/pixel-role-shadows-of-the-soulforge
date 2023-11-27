@@ -6,6 +6,9 @@ public class DamageController : MonoBehaviour
 {
     public Damage spell;
 
+    [SerializeField]
+    private bool destroy = false;
+
     private Rigidbody2D rb;
     private LayerMask targetLayer;
 
@@ -18,11 +21,13 @@ public class DamageController : MonoBehaviour
         {
             case (int)SpellLayers.PlayerAbility:
                 targetLayer = (1 << (int)NpcLayers.Enemy);
+                gameObject.tag = "Player";
                 break;
             case (int)SpellLayers.EnemyAbility:
                 targetLayer = (1 << (int)NpcLayers.Player) |
                               (1 << (int)NpcLayers.Golem) |
                               (1 << (int)NpcLayers.NPC);
+                gameObject.tag = "Enemy";
                 break;
             default:
                 gameObject.layer = (int)SpellLayers.Ability;
@@ -30,6 +35,7 @@ public class DamageController : MonoBehaviour
                               (1 << (int)NpcLayers.Golem) |
                               (1 << (int)NpcLayers.Enemy) |
                               (1 << (int)NpcLayers.NPC);
+                gameObject.tag = "NPC";
                 break;
         }
     }
@@ -46,6 +52,7 @@ public class DamageController : MonoBehaviour
                 spell.OnHit(target.gameObject);
         }
 
-        Destroy(gameObject);
+        if (destroy)
+            Destroy(gameObject);
     }
 }

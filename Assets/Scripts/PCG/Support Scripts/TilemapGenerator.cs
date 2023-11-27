@@ -10,7 +10,7 @@ public class TilemapGenerator : MonoBehaviour
     private Tilemap tilemap;
 
     [SerializeField]
-    private TileBase floor;
+    private TileBase floor, pathTile;
 
     [SerializeField]
     private List<TileBase> wallTiles;
@@ -86,5 +86,14 @@ public class TilemapGenerator : MonoBehaviour
     {
         Vector3Int worldPos = tilemap.WorldToCell((Vector3Int)pos);
         tilemap.SetTile(worldPos, tile);
+    }
+
+    public void ShowPath(List<Vector2Int> path)
+    {
+        foreach (var pos in path)
+        {
+            Vector3Int worldPos = tilemap.WorldToCell((Vector3Int)pos);
+            tilemap.SetTile(worldPos, pathTile);
+        }
     }
 }

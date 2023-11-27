@@ -29,11 +29,34 @@ public class CellularAutomata : AbstractGenerator
         // 3. Convert automat output to map
         ConvertToMap(mapArray, map);
 
-        // 4. Create walls
+        // 4. Generate start and finish positions, check if theres path between them
+        List<Vector2Int> mapList = new List<Vector2Int>(map);
 
-        // 5. Draw the map
+        Vector2Int start = Vector2Int.zero,
+                   finish = Vector2Int.zero;
+
+        float minimalDistance = Mathf.Sqrt(Mathf.Pow(mapSize.x, 2) + Mathf.Pow(mapSize.y, 2)) * 0.6f; // 60% of diagonal length
+        while (Vector2Int.Distance(start, finish) < minimalDistance)
+        {
+            start = mapList[rand.Next(0, mapList.Count)];
+            finish = mapList[rand.Next(0, mapList.Count)];
+        }
+
+        List<Vector2Int> AStarPath = PathfindingAStar.AStar(start, finish, map);
+        if (AStarPath.Count == 0)
+            return; // TODO reset on no path found
+
+        // 5. Flood-fill map hashset to get rid of unreachable parts of map
+        map = FloodFill.CheckReachableTiles(start, map);
+
+        // 6. Update player and finish position
+        player.position = new Vector3(start.x + 0.5f, start.y + 0.5f, 0);
+        portal.position = new Vector3(finish.x + 0.5f, finish.y + 0.5f, 0);
+
+        // 7. Draw the map and generate walls
         tilemapGen.ClearAll();
         tilemapGen.GenerateTilemap(map);
+        //tilemapGen.ShowPath(AStarPath); // Show A* path
     }
 
     private void ConvertToMap(int[,] mapArray, HashSet<Vector2Int> map)
